@@ -635,7 +635,7 @@ solana airdrop 1  # Request devnet SOL
 Successfully created NFT collection on devnet:
 
 ```
-Loaded user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Loaded [user](https://explorer.solana.com/address/8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh/tokens?cluster=devnet)
 Set up Umi instance for user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
 Creating NFT collection...
 Collection address: FTwh5NhhjgsPnqgMFhusxuZYJWrZaaSLz4ohvGbHV17R
