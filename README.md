@@ -18,6 +18,66 @@ An **NFT (Non-Fungible Token)** is a unique digital asset stored on a blockchain
 - Event tickets
 - Domain names
 
+## What is a Collection?
+
+An **NFT Collection** is a parent/master NFT that groups together related individual NFTs. Think of it like a folder or category that contains multiple items.
+
+**Conceptual Example:**
+- **Collection**: "Bored Ape Yacht Club"
+  - Individual NFTs: Ape #1, Ape #2, Ape #3... Ape #10,000
+
+- **Collection**: "Radu's Collection" (in this project)
+  - Individual NFTs: Could be Art Piece #1, Art Piece #2, etc.
+
+**Why Collections Exist:**
+
+1. **Organization** - Groups related NFTs under a single identity, making it easy to browse/filter
+2. **Branding** - Collection has its own name, symbol, and metadata providing shared identity
+3. **Verification** - Proves an NFT belongs to an official collection, preventing fakes
+4. **Shared Properties** - Common royalty settings, metadata, and attributes
+
+**Collection Hierarchy:**
+
+```
+Collection NFT (isCollection: true)
+├─ Address: FTwh5NhhjgsPnqgMFhusxuZYJWrZaaSLz4ohvGbHV17R
+├─ Name: "Radu's Collection"
+├─ Symbol: RCOL
+│
+├─── Individual NFT #1
+│    ├─ Name: "Viking Warrior #1"
+│    └─ collection: FTwh5N... (points to parent)
+│
+├─── Individual NFT #2
+│    ├─ Name: "Viking Warrior #2"
+│    └─ collection: FTwh5N... (points to parent)
+│
+└─── Individual NFT #3
+     ├─ Name: "Viking Warrior #3"
+     └─ collection: FTwh5N... (points to parent)
+```
+
+**The `isCollection: true` Flag:**
+
+This flag tells the Token Metadata program:
+- This NFT is a collection parent (not a regular NFT)
+- Other NFTs can reference this as their collection
+- It serves as a verification point for collection membership
+
+**What This Project Creates:**
+
+This script creates **only the collection parent** - the container/brand identity. It doesn't create individual NFTs yet. You've essentially:
+1. Created the "Radu's Collection" brand/identity
+2. Set up the structure that can hold future NFTs
+3. Established the collection's metadata and properties
+
+The next step would be to mint individual NFTs that reference this collection as their parent.
+
+**Real-World Analogy:**
+- **Collection** = Netflix series (e.g., "Stranger Things")
+- **Individual NFTs** = Individual episodes (S1E1, S1E2, etc.)
+- Episodes belong to the series and share its branding
+
 ## What is Metaplex?
 
 **Metaplex** is a protocol and set of tools for creating and managing NFTs and other digital assets on the Solana blockchain. It provides:
