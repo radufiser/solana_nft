@@ -27,8 +27,8 @@ const collectionMint = generateSigner(umi);
 
 const transaction = await createNft(umi, {
     mint: collectionMint,
-    name: "My Collection",
-    symbol: "MC",
+    name: "Radu's Collection",
+    symbol: "RCOL",
     uri: "https://raw.githubusercontent.com/radufiser/solana_nft/main/sample-nft-collection-offchain-data.json",
     sellerFeeBasisPoints: percentAmount(0),
     isCollection: true,
