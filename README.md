@@ -53,6 +53,10 @@ npm i @solana-developers/helpers
 npm i @solana/web3.js
 ```
 
+4. ES run
+```bash
+npm i esrun          
+```
 ## Creating an NFT Collection
 
 This project demonstrates how to create an NFT collection on Solana's devnet using Metaplex Token Metadata.
@@ -81,8 +85,33 @@ The `create-collection.ts` file demonstrates:
 ## Running the Project
 
 ```bash
-npx ts-node create-collection.ts
+npx esrun create-collection.ts  
 ```
+
+## Example Output
+
+Successfully created NFT collection on devnet:
+
+```
+Loaded user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Set up Umi instance for user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Creating NFT collection...
+Collection address: FTwh5NhhjgsPnqgMFhusxuZYJWrZaaSLz4ohvGbHV17R
+Transaction confirmed: Uint8Array(64) [...]
+Collection created for address: https://explorer.solana.com/address/FTwh5NhhjgsPnqgMFhusxuZYJWrZaaSLz4ohvGbHV17R?cluster=devnet
+```
+
+**Collection Details:**
+- **Address**: `FTwh5NhhjgsPnqgMFhusxuZYJWrZaaSLz4ohvGbHV17R`
+- **Name**: Radu's Collection
+- **Symbol**: RCOL
+- **Network**: Devnet
+- **Explorer**: [View on Solana Explorer](https://explorer.solana.com/address/FTwh5NhhjgsPnqgMFhusxuZYJWrZaaSLz4ohvGbHV17R?cluster=devnet)
+
+### Notes
+- If you encounter airdrop rate limiting errors (429), the script will continue if your wallet already has sufficient SOL balance
+- The transaction uses `finalized` commitment level to ensure the account is fully created before fetching
+- A 2-second delay is added after confirmation to allow RPC nodes to index the new account
 
 ## Alternatives to Metaplex
 

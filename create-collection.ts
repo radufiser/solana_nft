@@ -10,7 +10,11 @@ import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/
 const connnection = new Connection(clusterApiUrl("devnet"), "confirmed");
 const user = await getKeypairFromFile();
 
-await airdropIfRequired(connnection, user.publicKey, 1 * LAMPORTS_PER_SOL, 0.5 * LAMPORTS_PER_SOL);
+try {
+    await airdropIfRequired(connnection, user.publicKey, 1 * LAMPORTS_PER_SOL, 0.5 * LAMPORTS_PER_SOL);
+} catch (error) {
+    console.log("Airdrop failed (you may already have sufficient balance):", error.message);
+}
 
 console.log("Loaded user:", user.publicKey.toBase58());
 
@@ -25,7 +29,7 @@ console.log("Set up Umi instance for user:", umiUser.publicKey);
 
 const collectionMint = generateSigner(umi);
 
-const transaction = await createNft(umi, {
+const transaction = createNft(umi, {
     mint: collectionMint,
     name: "Radu's Collection",
     symbol: "RCOL",
@@ -34,7 +38,18 @@ const transaction = await createNft(umi, {
     isCollection: true,
 });
 
-await transaction.sendAndConfirm(umi);
+console.log("Creating NFT collection...");
+console.log("Collection address:", collectionMint.publicKey);
+
+const result = await transaction.sendAndConfirm(umi, {
+    send: { commitment: 'finalized' },
+    confirm: { commitment: 'finalized' }
+});
+
+console.log("Transaction confirmed:", result.signature);
+
+// Wait a moment for the account to be fully available
+await new Promise(resolve => setTimeout(resolve, 2000));
 
 const collectionNft = await fetchDigitalAsset(
     umi,
