@@ -761,6 +761,64 @@ Verifying NFT creation...
 
 **Note:** If you see airdrop errors, that's normal - your wallet likely has sufficient SOL already. The devnet faucet has rate limits.
 
+### Verify NFT in Collection
+
+After creating an NFT, you can verify it as part of the collection. This process:
+- Updates the NFT's metadata to mark it as verified
+- Links it officially to the collection
+- Requires the collection's update authority (your wallet) to sign
+
+**Why Verification Matters:**
+- **Authenticity**: Proves the NFT is an official part of the collection, not a fake
+- **Marketplace Display**: Verified NFTs appear under the collection on marketplaces
+- **Trust**: Users can trust verified NFTs came from the collection creator
+
+**Why Is Verification a Separate Step?**
+
+1. **Permission Control**
+   - Verification requires the **collection's update authority** to sign
+   - In real-world scenarios, someone else might own the collection
+   - Anyone can create an NFT that *references* a collection
+   - But only the collection owner can *verify* it as official
+
+2. **Security Against Counterfeits**
+   - Without this separation, anyone could create fake NFTs
+   - They could set `collection: YourCollectionAddress` and auto-verify
+   - The two-step process is a **trust handshake**:
+     - NFT: "I want to be in collection X" (unverified)
+     - Collection owner: "Yes, I approve" (verified)
+
+3. **Controlled Minting Workflows**
+   - Allows moderated collections (only quality NFTs get verified)
+   - Enable approval processes: mint → review → verify
+   - Useful for allow-list minting or quality control
+
+**Example**: The Bored Ape Yacht Club collection
+- You could create an NFT and reference the BAYC collection address
+- But only the BAYC team can verify it as an official Bored Ape
+- This prevents scammers from creating fake Bored Apes
+
+**In This Project**: Since you own both the collection and the NFT, you *could* auto-verify during creation by setting `verified: true` in the `createNft()` call. We keep them separate for learning purposes and to mirror real-world patterns.
+
+```bash
+npx esrun verify-nft.ts
+```
+
+**Example Output:**
+```
+Airdrop failed (you may already have sufficient balance): airdrop to 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh failed: Internal error
+Loaded user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Set up Umi instance for user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Verifying NFT...
+NFT 5UGsJV5pBPwRZmm68ZNHxUQQk6rNUGhDFeUEMzcircUi verified! View on explorer: https://explorer.solana.com/address/5UGsJV5pBPwRZmm68ZNHxUQQk6rNUGhDFeUEMzcircUi?cluster=devnet
+```
+
+**What Just Happened:**
+1. The script signed a transaction with your wallet (the collection's update authority)
+2. It called the Token Metadata program to set `verified: true` on the NFT
+3. The NFT is now officially part of "Radu's Collection"
+4. Marketplaces will display it under the collection with a verified badge
+
 ---
 
 **Questions or Issues?** Review the [Common Mistakes](#common-mistakes) section or check the Solana Discord for help.
