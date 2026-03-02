@@ -117,8 +117,20 @@ const transaction = await createNft(umi, {
     },
 });
 
-await transaction.sendAndConfirm(umi);
+const result = await transaction.sendAndConfirm(umi);
 
-const createdNft = await fetchDigitalAsset(umi, mint.publicKey);
+console.log("✅ NFT Created Successfully!");
+console.log("   Mint Address:", mint.publicKey);
+console.log("   Explorer Link:", getExplorerLink("address", mint.publicKey, "devnet"));
 
-console.log("Created NFT: Address is: ", getExplorerLink("address", createdNft.mint.publicKey, "devnet"));
+// Optional: Verify the NFT was created by fetching it
+console.log("\nVerifying NFT creation...");
+await new Promise(resolve => setTimeout(resolve, 5000));
+
+try {
+    const createdNft = await fetchDigitalAsset(umi, mint.publicKey);
+    console.log("✅ Verification successful! NFT name:", createdNft.metadata.name);
+} catch (error) {
+    console.log("⚠️  Verification fetch failed (this is OK - the NFT was created)");
+    console.log("   The network may need more time to index. Check the explorer link above.");
+}

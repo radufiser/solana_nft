@@ -731,6 +731,38 @@ Collection created: https://explorer.solana.com/address/...  # View on explorer
 
 ---
 
+## Running the Scripts
+
+### Create Collection NFT
+
+```bash
+npx esrun create-collection.ts
+```
+
+### Create Individual NFT
+
+```bash
+npx esrun create-nft.ts
+```
+
+**Example Output:**
+```
+Airdrop failed (you may already have sufficient balance): 429 Too Many Requests
+Loaded user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Set up Umi instance for user: 8Q4gyVRnzcUeF1x7FTLAJu6s8HRXn6tfEDQi3TizGgCh
+Creating NFT...
+✅ NFT Created Successfully!
+   Mint Address: 5UGsJV5pBPwRZmm68ZNHxUQQk6rNUGhDFeUEMzcircUi
+   Explorer Link: https://explorer.solana.com/address/5UGsJV5pBPwRZmm68ZNHxUQQk6rNUGhDFeUEMzcircUi?cluster=devnet
+
+Verifying NFT creation...
+✅ Verification successful! NFT name: Radu's First NFT
+```
+
+**Note:** If you see airdrop errors, that's normal - your wallet likely has sufficient SOL already. The devnet faucet has rate limits.
+
+---
+
 **Questions or Issues?** Review the [Common Mistakes](#common-mistakes) section or check the Solana Discord for help.
 
 **Ready to Build?** Start with [Next Steps](#next-steps) to expand your NFT knowledge.
