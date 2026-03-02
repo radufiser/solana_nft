@@ -4,7 +4,30 @@
 
 A hands-on, beginner-friendly guide to creating NFT collections on Solana using Metaplex.
 
-## 📚 Table of Contents
+## � Quick Start: The Workflow
+
+This project demonstrates the complete NFT collection workflow:
+
+1. **Create Collection** (Collection Authority)
+   - Run `create-collection.ts` to create the parent collection
+   - You become the collection's "update authority"
+   - This is the brand/container for your NFTs
+
+2. **Create NFTs** (Anyone)
+   - Run `create-nft.ts` to mint individual NFTs
+   - NFTs reference the collection but start as **unverified**
+   - Can be done by you or other users
+
+3. **Verify NFTs** (Collection Authority Only)
+   - Run `verify-nft.ts` to verify NFTs as official
+   - Only the collection's update authority can verify
+   - Marks NFTs as authentic members of the collection
+
+**Key Insight**: The collection creator controls which NFTs are "official" through verification. Anyone can create an NFT that references your collection, but only you can verify it as authentic.
+
+---
+
+## �📚 Table of Contents
 1. [Core Concepts](#core-concepts) - NFTs, Collections, and Metaplex
 2. [Mental Models](#mental-models) - How to think about Solana NFTs
 3. [Project Setup](#project-setup) - Getting your environment ready
@@ -101,17 +124,51 @@ This flag tells the Token Metadata program:
 
 **What This Project Creates:**
 
-This script creates **only the collection parent** - the container/brand identity. It doesn't create individual NFTs yet. You've essentially:
-1. Created the "Radu's Collection" brand/identity
-2. Set up the structure that can hold future NFTs
-3. Established the collection's metadata and properties
+**Step 1: Collection Creation** (`create-collection.ts`)
+- Creates the collection parent NFT with `isCollection: true`
+- You become the collection's "update authority"
+- Establishes the brand identity: "Radu's Collection"
+- This is like creating the Netflix series "Stranger Things"
 
-The next step would be to mint individual NFTs that reference this collection as their parent.
+**Step 2: NFT Creation** (`create-nft.ts`)
+- Creates individual NFTs that reference the collection
+- Can be done by you OR anyone else
+- NFTs start as **unverified** (collection reference exists but not approved)
+- Like creating an episode that claims to be part of "Stranger Things"
+
+**Step 3: Verification** (`verify-nft.ts`)
+- Only the collection's update authority can run this
+- Sets `verified: true` on the NFT's metadata
+- Marks the NFT as an official, authentic member
+- Like Netflix officially adding the episode to the series
+
+**The Workflow in Practice:**
+
+```
+┌─────────────────────────────────────────────────────┐
+│  1. You create collection                           │
+│     Authority: Your Wallet                          │
+└─────────────────────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│  2. Someone creates NFT                             │
+│     References collection: FTwh5N...                │
+│     Verified: false                                 │
+└─────────────────────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│  3. You verify NFT (collection authority signs)     │
+│     Verified: true                                  │
+│     NFT now appears in collection on marketplaces   │
+└─────────────────────────────────────────────────────┘
+```
 
 **Real-World Analogy:**
 - **Collection** = Netflix series (e.g., "Stranger Things")
 - **Individual NFTs** = Individual episodes (S1E1, S1E2, etc.)
-- Episodes belong to the series and share its branding
+- **Verification** = Netflix officially adding episodes to the series catalog
 
 ### What is Metaplex?
 
